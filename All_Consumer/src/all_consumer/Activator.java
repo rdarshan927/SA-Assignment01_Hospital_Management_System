@@ -1,21 +1,21 @@
 package all_consumer;
 
-import finance_consumer.FinanceConsumerActivator;
+//import finance_consumer.FinanceConsumerActivator;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-import doctor_consumer.DoctorConsumerActivator;
+//import doctor_consumer.DoctorConsumerActivator;
 import nurse_consumer.NurseConsumerActivator;
-import security_consumer.SecurityConsumerActivator;
+//import security_consumer.SecurityConsumerActivator;
 
 public class Activator implements BundleActivator {
 
-    private final DoctorConsumerActivator doctor = new DoctorConsumerActivator();
+//    private final DoctorConsumerActivator doctor = new DoctorConsumerActivator();
     private final NurseConsumerActivator nurse = new NurseConsumerActivator();
-    private final SecurityConsumerActivator security = new SecurityConsumerActivator();
-    private final FinanceConsumerActivator finance = new FinanceConsumerActivator();
+//    private final SecurityConsumerActivator security = new SecurityConsumerActivator();
+//    private final FinanceConsumerActivator finance = new FinanceConsumerActivator();
     private Scanner scanner;
 
     public void start(BundleContext bundleContext) {
@@ -57,10 +57,10 @@ public class Activator implements BundleActivator {
                 scanner.nextLine(); // Consume newline
 
                 switch (choice) {
-                    case 1 -> doctor.start(bundleContext);
+//                    case 1 -> doctor.start(bundleContext);
                     case 2 -> nurse.start(bundleContext);
-                    case 3 -> security.start(bundleContext);
-                    case 4 -> finance.start(bundleContext);
+//                    case 3 -> security.start(bundleContext);
+//                    case 4 -> finance.start(bundleContext);
                     case 5 -> running = false;
                     default -> System.out.println("Invalid choice. Please try again.");
                 }
@@ -76,7 +76,7 @@ public class Activator implements BundleActivator {
     public void stop(BundleContext bundleContext) {
         System.out.println("Hospital Management System is shutting down...");
         if (scanner != null) {
-            scanner.close(); // Close scanner properly
+            scanner.close(); 
         }
     }
 }
