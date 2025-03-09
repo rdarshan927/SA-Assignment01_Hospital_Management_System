@@ -2,6 +2,8 @@ package nurse_consumer;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
@@ -36,9 +38,13 @@ public class NurseConsumerActivator implements BundleActivator {
                         case 1:
                             System.out.print("Enter nurse name: ");
                             String name = scanner.nextLine();
+                            System.out.print("Enter email: ");
+                            String email = scanner.nextLine();
+                            System.out.print("Enter phone no: ");
+                            String phoneNo = scanner.nextLine();
                             System.out.print("Enter department: ");
                             String department = scanner.nextLine();
-                            nurseService.addNurse(name, department);
+                            nurseService.addNurse(name, email, phoneNo, department);
                             break;
                         case 2:
                             nurseService.listNurses();
@@ -49,9 +55,13 @@ public class NurseConsumerActivator implements BundleActivator {
                             scanner.nextLine();
                             System.out.print("Enter new name: ");
                             String newName = scanner.nextLine();
+                            System.out.print("Enter new email: ");
+                            String newEmail = scanner.nextLine();
+                            System.out.print("Enter new phone no: ");
+                            String newPhoneNo = scanner.nextLine();
                             System.out.print("Enter new department: ");
                             String newDepartment = scanner.nextLine();
-                            nurseService.updateNurse(nurseId, newName, newDepartment);
+                            nurseService.updateNurse(nurseId, newName, newEmail, newPhoneNo, newDepartment);
                             break;
                         case 4:
                             System.out.print("Enter nurse ID to remove: ");
@@ -81,6 +91,14 @@ public class NurseConsumerActivator implements BundleActivator {
 
     public void stop(BundleContext context) throws Exception {
         System.out.println("Nurse Consumer Stopped.");
+        
+     // Now explicitly start the 'all_consumer' bundle when Nurse Consumer stops
+        Bundle allConsumerBundle = context.getBundle("all_consumer_bundle_id"); // Use actual bundle ID for all_consumer
+        if (allConsumerBundle != null && allConsumerBundle.getState() != Bundle.ACTIVE) {
+            allConsumerBundle.start();
+            System.out.println("All Consumer Started.");
+        }
+
         if (scanner != null) {
             scanner.close(); // Close scanner to prevent resource leak
         }
