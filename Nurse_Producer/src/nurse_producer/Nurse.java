@@ -3,12 +3,16 @@ package nurse_producer;
 public class Nurse {
     private int id;
     private String name;
+    private String email;
+    private String phoneNo;
     private String department;
 
-    public Nurse(int id, String name, String department) {
+    public Nurse(int id, String name, String email, String phoneNo, String department) {
         this.id = id;
         this.name = name;
         this.department = department;
+        this.email = email;
+        this.phoneNo = phoneNo;
     }
 
     public int getId() {
@@ -31,8 +35,24 @@ public class Nurse {
         this.department = department;
     }
 
-    @Override
+    public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPhoneNo() {
+		return phoneNo;
+	}
+
+	public void setPhoneNo(String phoneNo) {
+		this.phoneNo = phoneNo;
+	}
+
+	@Override
     public String toString() {
-        return "🩺 Nurse ID: " + id + ", Name: " + name + ", Department: " + department;
+        return id + " \t\t " + name + " \t\t " + email + " \t " + phoneNo +" \t\t " + department;
     }
 }

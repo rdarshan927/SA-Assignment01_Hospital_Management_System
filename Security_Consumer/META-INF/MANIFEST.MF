@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Security_Consumer
+Bundle-SymbolicName: Security_Consumer
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: security_consumer.Security_Consumer_Activator
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Automatic-Module-Name: Security.Consumer
+Import-Package: org.osgi.framework;version="1.3.0",
+ security_producer
+Bundle-ActivationPolicy: lazy
+Export-Package: security_consumer

@@ -1,42 +1,31 @@
 package all_consumer;
 
-//import finance_consumer.FinanceConsumerActivator;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-//import doctor_consumer.DoctorConsumerActivator;
-import nurse_consumer.NurseConsumerActivator;
-//import security_consumer.SecurityConsumerActivator;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleException;
 
 public class Activator implements BundleActivator {
 
-//    private final DoctorConsumerActivator doctor = new DoctorConsumerActivator();
-    private final NurseConsumerActivator nurse = new NurseConsumerActivator();
-//    private final SecurityConsumerActivator security = new SecurityConsumerActivator();
-//    private final FinanceConsumerActivator finance = new FinanceConsumerActivator();
     private Scanner scanner;
 
     public void start(BundleContext bundleContext) {
         scanner = new Scanner(System.in);
         boolean running = true;
-        
+
         String logo = """
-        _    _             _       _   _                
-        | |  | |           | |     | | (_)              
-        | |__| |_   _ _ __ | | ___ | |_ _  ___  _ __    
-        |  __  | | | | '_ \\| |/ _ \\| __| |/ _ \\| '_ \\   
-        | |  | | |_| | |_) | | (_) | |_| | (_) | | | |  
-        |_|  |_|\\__,_| .__/|_|\\___/ \\__|_|\\___/|_| |_|  
-                    | |                                  
-                    |_|                                  
+        		                     | ------------------------------------ |                             
+                                             | 𝓗𝓸𝓼𝓹𝓲𝓽𝓪𝓵 𝓜𝓪𝓷𝓪𝓰𝓮𝓶𝓮𝓷𝓽 𝓢𝔂𝓼𝓽𝓮𝓶 |
+        				     |--------------------------------------|
         """;
 
         System.out.println(logo);
-        
+
         while (running) {
-            System.out.println("\t\t\t(¯`·._.··¸.-~*´¨¯¨`*·~-.SELECT AN ACTION.-~*´¨¯¨`*·~-.¸··._.·´¯)");
+            System.out.println("\t\t\t------------------------ SELECT AN ACTION ----------------------");
             System.out.println("");
             System.out.println("\t\t\t\t   1. Doctor Management");
             System.out.println("\t\t\t\t   2. Nurse Management");
@@ -57,10 +46,10 @@ public class Activator implements BundleActivator {
                 scanner.nextLine(); // Consume newline
 
                 switch (choice) {
-//                    case 1 -> doctor.start(bundleContext);
-                    case 2 -> nurse.start(bundleContext);
-//                    case 3 -> security.start(bundleContext);
-//                    case 4 -> finance.start(bundleContext);
+                    case 1 -> startBundle(bundleContext, "Doctor_Consumer"); // Start Doctor bundle when selected
+                    case 2 -> startBundle(bundleContext, "Nurse_Consumer");
+                    case 3 -> startBundle(bundleContext, "Security_Consumer");
+                    case 4 -> startBundle(bundleContext, "Finance_Consumer");
                     case 5 -> running = false;
                     default -> System.out.println("Invalid choice. Please try again.");
                 }
@@ -79,4 +68,49 @@ public class Activator implements BundleActivator {
             scanner.close(); 
         }
     }
+    
+    private void startBundle(BundleContext context, String symbolicName) {
+        // Find the bundle by symbolic name
+        Bundle bundle = findBundleBySymbolicName(context, symbolicName);
+        if (bundle != null) {
+            System.out.println("Bundle found: " + symbolicName);
+
+            // Check if the bundle is already active
+            if (bundle.getState() != Bundle.ACTIVE) {
+                try {
+                    // Start the bundle
+                    bundle.start();
+                    System.out.println(symbolicName + " started successfully.");
+                } catch (BundleException e) {
+                    System.out.println("Error starting " + symbolicName + ": " + e.getMessage());
+                }
+            } else {
+                System.out.println(symbolicName + " is already active.");
+            }
+        } else {
+            System.out.println("Bundle " + symbolicName + " not found.");
+        }
+    }
+
+
+    private Bundle findBundleBySymbolicName(BundleContext context, String symbolicName) {
+        Bundle[] bundles = context.getBundles();
+        if (bundles == null || bundles.length == 0) {
+            System.out.println("No bundles found.");
+            return null;
+        }
+
+        // Log all the bundles
+        for (Bundle bundle : bundles) {
+            System.out.println("Found bundle: " + bundle.getSymbolicName());
+            if (symbolicName.equals(bundle.getSymbolicName())) {
+                return bundle;
+            }
+        }
+
+        System.out.println("Bundle with symbolic name " + symbolicName + " not found.");
+        return null;
+    }
+
+
 }

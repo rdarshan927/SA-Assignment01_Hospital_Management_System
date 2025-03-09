@@ -9,8 +9,8 @@ public class NurseServiceImpl implements NurseService {
     private int nurseIdCounter = 1; // Auto-increment ID for nurses
 
     @Override
-    public void addNurse(String name, String department) {
-        Nurse nurse = new Nurse(nurseIdCounter++, name, department);
+    public void addNurse(String name, String email, String phoneNo, String department) {
+        Nurse nurse = new Nurse(nurseIdCounter++, name, email, phoneNo, department);
         nurses.add(nurse);
         System.out.println("✅ Nurse added: " + nurse.getId() + " - " + name + " (Department: " + department + ")");
     }
@@ -21,6 +21,7 @@ public class NurseServiceImpl implements NurseService {
             System.out.println("⚠️ No nurses available.");
         } else {
             System.out.println("\n📋 List of Nurses:");
+            System.out.println("Nurse ID \t Name \t\t\t Email \t\t\t Phone No \t\t Department");
             for (Nurse nurse : nurses) {
                 System.out.println(nurse);
             }
@@ -28,7 +29,7 @@ public class NurseServiceImpl implements NurseService {
     }
 
     @Override
-    public void updateNurse(int id, String newName, String newDepartment) {
+    public void updateNurse(int id, String newName, String newEmail, String newPhoneNo, String newDepartment) {
         Optional<Nurse> nurseOptional = findNurseById(id);
         if (nurseOptional.isPresent()) {
             Nurse nurse = nurseOptional.get();
