@@ -53,6 +53,6 @@ public class Doctor {
 
 	@Override
     public String toString() {
-        return id + " \t\t " + name + " \t " + specialization + " \t\t " + email + " \t " + phoneNo ;
+        return id + " \t\t " + name + " \t " + specialization + " \t\t\t " + email + " \t " + phoneNo ;
     }
 }

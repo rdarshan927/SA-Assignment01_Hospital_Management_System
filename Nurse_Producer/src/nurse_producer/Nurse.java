@@ -53,6 +53,6 @@ public class Nurse {
 
 	@Override
     public String toString() {
-        return id + " \t\t " + name + " \t\t " + email + " \t " + phoneNo +" \t\t " + department;
+        return id + " \t\t " + name + " \t\t\t " + email + " \t " + phoneNo +" \t\t " + department;
     }
 }
