@@ -73,7 +73,7 @@ public class Activator implements BundleActivator {
         // Find the bundle by symbolic name
         Bundle bundle = findBundleBySymbolicName(context, symbolicName);
         if (bundle != null) {
-            System.out.println("Bundle found: " + symbolicName);
+//            System.out.println("Bundle found: " + symbolicName);
 
             // Check if the bundle is already active
             if (bundle.getState() != Bundle.ACTIVE) {
@@ -102,7 +102,7 @@ public class Activator implements BundleActivator {
 
         // Log all the bundles
         for (Bundle bundle : bundles) {
-            System.out.println("Found bundle: " + bundle.getSymbolicName());
+//            System.out.println("Found bundle: " + bundle.getSymbolicName());
             if (symbolicName.equals(bundle.getSymbolicName())) {
                 return bundle;
             }

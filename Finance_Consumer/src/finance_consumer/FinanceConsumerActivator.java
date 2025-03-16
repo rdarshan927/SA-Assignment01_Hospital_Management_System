@@ -72,6 +72,7 @@ public class FinanceConsumerActivator implements BundleActivator {
                         String newType = scanner.nextLine();
                         System.out.print("Enter new amount: ");
                         double newAmount = scanner.nextDouble();
+                        scanner.nextLine();
                         System.out.print("Enter name/description: ");
                         String newName = scanner.nextLine();
 

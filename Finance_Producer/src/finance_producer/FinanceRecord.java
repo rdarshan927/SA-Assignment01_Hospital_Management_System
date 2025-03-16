@@ -55,7 +55,7 @@ public class FinanceRecord {
 
 	@Override
     public String toString() {
-        return id + " \t\t\t " + type + " \t" + amount + " \t\t " + name + " \t " + date;
+        return id + " \t\t\t " + type + " \t " + amount + " \t\t " + name + " \t\t " + date;
     }
 }
 
